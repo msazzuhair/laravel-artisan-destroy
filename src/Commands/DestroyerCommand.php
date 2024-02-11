@@ -17,14 +17,14 @@ abstract class DestroyerCommand extends Command implements PromptsForMissingInpu
      *
      * @var \Illuminate\Filesystem\Filesystem
      */
-    protected Filesystem $files;
+    protected $files;
 
     /**
      * The type of class being generated.
      *
      * @var string
      */
-    protected string $type;
+    protected $type;
 
     /**
      * Delete a controller creator command instance.
@@ -89,7 +89,7 @@ abstract class DestroyerCommand extends Command implements PromptsForMissingInpu
      * @param  string  $name
      * @return string
      */
-    protected function qualifyClass($name): string
+    protected function qualifyClass($name)
     {
         $name = ltrim($name, '\\/');
 
@@ -112,7 +112,7 @@ abstract class DestroyerCommand extends Command implements PromptsForMissingInpu
      * @param  string  $model
      * @return string
      */
-    protected function qualifyModel(string $model): string
+    protected function qualifyModel(string $model)
     {
         $model = ltrim($model, '\\/');
 
@@ -134,7 +134,7 @@ abstract class DestroyerCommand extends Command implements PromptsForMissingInpu
      *
      * @return array<int, string>
      */
-    protected function possibleModels(): array
+    protected function possibleModels()
     {
         $modelPath = is_dir(app_path('Models')) ? app_path('Models') : app_path();
 
@@ -150,7 +150,7 @@ abstract class DestroyerCommand extends Command implements PromptsForMissingInpu
      *
      * @return array<int, string>
      */
-    protected function possibleEvents(): array
+    protected function possibleEvents()
     {
         $eventPath = app_path('Events');
 
@@ -171,7 +171,7 @@ abstract class DestroyerCommand extends Command implements PromptsForMissingInpu
      * @param  string  $rootNamespace
      * @return string
      */
-    protected function getDefaultNamespace($rootNamespace): string
+    protected function getDefaultNamespace($rootNamespace)
     {
         return $rootNamespace;
     }
@@ -182,7 +182,7 @@ abstract class DestroyerCommand extends Command implements PromptsForMissingInpu
      * @param string $rawName
      * @return bool
      */
-    protected function doesNotExist(string $rawName): bool
+    protected function doesNotExist(string $rawName)
     {
         return !$this->files->exists($this->getPath($this->qualifyClass($rawName)));
     }
@@ -193,7 +193,7 @@ abstract class DestroyerCommand extends Command implements PromptsForMissingInpu
      * @param  string  $name
      * @return string
      */
-    protected function getPath($name): string
+    protected function getPath($name)
     {
         $name = Str::replaceFirst($this->rootNamespace(), '', $name);
 
@@ -206,7 +206,7 @@ abstract class DestroyerCommand extends Command implements PromptsForMissingInpu
      * @param  string  $name
      * @return string
      */
-    protected function getNamespace($name): string
+    protected function getNamespace($name)
     {
         return trim(implode('\\', array_slice(explode('\\', $name), 0, -1)), '\\');
     }
@@ -216,7 +216,7 @@ abstract class DestroyerCommand extends Command implements PromptsForMissingInpu
      *
      * @return string
      */
-    protected function getNameInput(): string
+    protected function getNameInput()
     {
         return trim($this->argument('name'));
     }
@@ -226,7 +226,7 @@ abstract class DestroyerCommand extends Command implements PromptsForMissingInpu
      *
      * @return string
      */
-    protected function rootNamespace(): string
+    protected function rootNamespace()
     {
         return $this->laravel->getNamespace();
     }
@@ -236,7 +236,7 @@ abstract class DestroyerCommand extends Command implements PromptsForMissingInpu
      *
      * @return string|null
      */
-    protected function userProviderModel(): ?string
+    protected function userProviderModel()
     {
         $config = $this->laravel['config'];
 
@@ -251,7 +251,7 @@ abstract class DestroyerCommand extends Command implements PromptsForMissingInpu
      * @param  string  $path
      * @return string
      */
-    protected function viewPath($path = ''): string
+    protected function viewPath($path = '')
     {
         $views = $this->laravel['config']['view.paths'][0] ?? resource_path('views');
 
@@ -263,7 +263,7 @@ abstract class DestroyerCommand extends Command implements PromptsForMissingInpu
      *
      * @return array
      */
-    protected function getArguments(): array
+    protected function getArguments()
     {
         return [
             ['name', InputArgument::REQUIRED, 'The name of the '.strtolower($this->type)],
@@ -275,7 +275,7 @@ abstract class DestroyerCommand extends Command implements PromptsForMissingInpu
      *
      * @return array
      */
-    protected function promptForMissingArgumentsUsing(): array
+    protected function promptForMissingArgumentsUsing()
     {
         return [
             'name' => [

@@ -2,7 +2,7 @@
 
 namespace Msazzuhair\LaravelArtisanDestroy\Commands;
 
-use Illuminate\Console\Concerns\DeletesMatchingTest;
+use Msazzuhair\LaravelArtisanDestroy\Traits\DeletesMatchingTest;
 use Illuminate\Support\Str;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputInterface;
