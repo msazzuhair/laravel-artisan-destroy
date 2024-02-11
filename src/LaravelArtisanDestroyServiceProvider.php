@@ -24,7 +24,6 @@ use Illuminate\Foundation\Console\TestDestroyCommand;
 use Illuminate\Foundation\Console\ViewDestroyCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Msazzuhair\LaravelArtisanDestroy\Commands\LaravelArtisanDestroyCommand;
 
 class LaravelArtisanDestroyServiceProvider extends PackageServiceProvider
 {
@@ -58,7 +57,7 @@ class LaravelArtisanDestroyServiceProvider extends PackageServiceProvider
                 RuleDestroyCommand::class,
                 ScopeDestroyCommand::class,
                 TestDestroyCommand::class,
-                ViewDestroyCommand::class
+                ViewDestroyCommand::class,
             ]);
     }
 }

@@ -68,7 +68,6 @@ class ConsoleDestroyCommand extends DestroyerCommand
      * Get the default namespace for the class.
      *
      * @param  string  $rootNamespace
-     * @return string
      */
     protected function getDefaultNamespace($rootNamespace): string
     {
@@ -77,8 +76,6 @@ class ConsoleDestroyCommand extends DestroyerCommand
 
     /**
      * Get the console command arguments.
-     *
-     * @return array
      */
     protected function getArguments(): array
     {

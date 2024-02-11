@@ -37,8 +37,8 @@ trait DeletesMatchingTest
         }
 
         return $this->callSilent('destroy:test', [
-                'name' => Str::of($path)->after($this->laravel['path'])->beforeLast('.php')->append('Test')->replace('\\', '/'),
-                '--pest' => $this->option('pest'),
-            ]) == 0;
+            'name' => Str::of($path)->after($this->laravel['path'])->beforeLast('.php')->append('Test')->replace('\\', '/'),
+            '--pest' => $this->option('pest'),
+        ]) == 0;
     }
 }
