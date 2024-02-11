@@ -24,8 +24,6 @@ class CastDestroyCommand extends DestroyerCommand
 
     /**
      * The type of class being generated.
-     *
-     * @var string
      */
     protected $type = 'Cast';
 
@@ -33,7 +31,6 @@ class CastDestroyCommand extends DestroyerCommand
      * Get the default namespace for the class.
      *
      * @param  string  $rootNamespace
-     * @return string
      */
     protected function getDefaultNamespace($rootNamespace)
     {

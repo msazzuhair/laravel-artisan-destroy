@@ -57,7 +57,7 @@ class LaravelArtisanDestroyServiceProvider extends PackageServiceProvider
                 RuleDestroyCommand::class,
                 ScopeDestroyCommand::class,
                 TestDestroyCommand::class,
-                ViewDestroyCommand::class
+                ViewDestroyCommand::class,
             ]);
     }
 }

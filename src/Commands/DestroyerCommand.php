@@ -14,22 +14,17 @@ abstract class DestroyerCommand extends Command implements PromptsForMissingInpu
 {
     /**
      * The filesystem instance.
-     *
-     * @var \Illuminate\Filesystem\Filesystem
      */
     protected $files;
 
     /**
      * The type of class being generated.
-     *
-     * @var string
      */
     protected $type;
 
     /**
      * Delete a controller creator command instance.
      *
-     * @param  \Illuminate\Filesystem\Filesystem  $files
      * @return void
      */
     public function __construct(Filesystem $files)
@@ -87,7 +82,6 @@ abstract class DestroyerCommand extends Command implements PromptsForMissingInpu
      * Parse the class name and format according to the root namespace.
      *
      * @param  string  $name
-     * @return string
      */
     protected function qualifyClass($name)
     {
@@ -108,9 +102,6 @@ abstract class DestroyerCommand extends Command implements PromptsForMissingInpu
 
     /**
      * Qualify the given model class base name.
-     *
-     * @param  string  $model
-     * @return string
      */
     protected function qualifyModel(string $model)
     {
@@ -169,7 +160,6 @@ abstract class DestroyerCommand extends Command implements PromptsForMissingInpu
      * Get the default namespace for the class.
      *
      * @param  string  $rootNamespace
-     * @return string
      */
     protected function getDefaultNamespace($rootNamespace)
     {
@@ -178,20 +168,16 @@ abstract class DestroyerCommand extends Command implements PromptsForMissingInpu
 
     /**
      * Determine if the class already exists.
-     *
-     * @param string $rawName
-     * @return bool
      */
     protected function doesNotExist(string $rawName)
     {
-        return !$this->files->exists($this->getPath($this->qualifyClass($rawName)));
+        return ! $this->files->exists($this->getPath($this->qualifyClass($rawName)));
     }
 
     /**
      * Get the destination class path.
      *
      * @param  string  $name
-     * @return string
      */
     protected function getPath($name)
     {
@@ -204,7 +190,6 @@ abstract class DestroyerCommand extends Command implements PromptsForMissingInpu
      * Get the full namespace for a given class, without the class name.
      *
      * @param  string  $name
-     * @return string
      */
     protected function getNamespace($name)
     {
@@ -213,8 +198,6 @@ abstract class DestroyerCommand extends Command implements PromptsForMissingInpu
 
     /**
      * Get the desired class name from the input.
-     *
-     * @return string
      */
     protected function getNameInput()
     {
@@ -223,8 +206,6 @@ abstract class DestroyerCommand extends Command implements PromptsForMissingInpu
 
     /**
      * Get the root namespace for the class.
-     *
-     * @return string
      */
     protected function rootNamespace()
     {
@@ -233,8 +214,6 @@ abstract class DestroyerCommand extends Command implements PromptsForMissingInpu
 
     /**
      * Get the model for the default guard's user provider.
-     *
-     * @return string|null
      */
     protected function userProviderModel()
     {
@@ -249,7 +228,6 @@ abstract class DestroyerCommand extends Command implements PromptsForMissingInpu
      * Get the first view directory path from the application configuration.
      *
      * @param  string  $path
-     * @return string
      */
     protected function viewPath($path = '')
     {
@@ -260,8 +238,6 @@ abstract class DestroyerCommand extends Command implements PromptsForMissingInpu
 
     /**
      * Get the console command arguments.
-     *
-     * @return array
      */
     protected function getArguments()
     {
@@ -272,8 +248,6 @@ abstract class DestroyerCommand extends Command implements PromptsForMissingInpu
 
     /**
      * Prompt for missing input arguments using the returned questions.
-     *
-     * @return array
      */
     protected function promptForMissingArgumentsUsing()
     {
@@ -315,9 +289,7 @@ abstract class DestroyerCommand extends Command implements PromptsForMissingInpu
         // If force option is used, we don't need confirmation
         if ($this->option('force')) {
             return true;
-        }
-
-        else if (config('artisan-destroy.confirmation', true)) {
+        } elseif (config('artisan-destroy.confirmation', true)) {
             if (config('artisan-destroy.git-tracking-confirmation', true)) {
                 // Check if git is present
                 if (shell_exec('git rev-parse --is-inside-work-tree') == '') {
@@ -325,12 +297,12 @@ abstract class DestroyerCommand extends Command implements PromptsForMissingInpu
                 }
 
                 // Check if the file is tracked by git
-                if (shell_exec('git ls-files --error-unmatch ' . $path) == '') {
+                if (shell_exec('git ls-files --error-unmatch '.$path) == '') {
                     $this->components->error('The file is not tracked by git. Any deletion will be irreversible.');
                 }
 
                 // Check if the file has uncommited changes
-                if (shell_exec('git diff --quiet ' . $path) != '') {
+                if (shell_exec('git diff --quiet '.$path) != '') {
                     $this->components->error('The file has uncommited changes. Any deletion will be irreversible.');
                 }
             }
@@ -341,6 +313,7 @@ abstract class DestroyerCommand extends Command implements PromptsForMissingInpu
         }
 
         $this->components->info('Deletion aborted.');
+
         return false;
     }
 }

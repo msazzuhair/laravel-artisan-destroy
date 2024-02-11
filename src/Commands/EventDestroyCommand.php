@@ -24,8 +24,6 @@ class EventDestroyCommand extends DestroyerCommand
 
     /**
      * The type of class being generated.
-     *
-     * @var string
      */
     protected $type = 'Event';
 
