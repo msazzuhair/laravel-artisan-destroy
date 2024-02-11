@@ -1,17 +1,17 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "msazzuhair/laravel-artisan-destroy",
+    "description": "This is my package laravel-artisan-destroy",
     "keywords": [
-        ":vendor_name",
+        "Muhammad Azzuhair",
         "laravel",
-        ":package_slug"
+        "laravel-artisan-destroy"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/msazzuhair/laravel-artisan-destroy",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Muhammad Azzuhair",
+            "email": "muhammadazzuhair@hotmail.com",
             "role": "Developer"
         }
     ],
@@ -35,19 +35,19 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src/",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories/"
+            "Msazzuhair\\LaravelArtisanDestroy\\": "src/",
+            "Msazzuhair\\LaravelArtisanDestroy\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests/",
+            "Msazzuhair\\LaravelArtisanDestroy\\Tests\\": "tests/",
             "Workbench\\App\\": "workbench/app/"
         }
     },
     "scripts": {
         "post-autoload-dump": "@composer run prepare",
-        "clear": "@php vendor/bin/testbench package:purge-skeleton --ansi",
+        "clear": "@php vendor/bin/testbench package:purge-laravel-artisan-destroy --ansi",
         "prepare": "@php vendor/bin/testbench package:discover --ansi",
         "build": [
             "@composer run prepare",
@@ -73,10 +73,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "Msazzuhair\\LaravelArtisanDestroy\\LaravelArtisanDestroyServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "LaravelArtisanDestroy": "Msazzuhair\\LaravelArtisanDestroy\\Facades\\LaravelArtisanDestroy"
             }
         }
     },
