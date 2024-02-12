@@ -35,14 +35,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Msazzuhair\\LaravelArtisanDestroy\\": "src/",
-            "Msazzuhair\\LaravelArtisanDestroy\\Database\\Factories\\": "database/factories/"
+            "Msazzuhair\\LaravelArtisanDestroy\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
             "Msazzuhair\\LaravelArtisanDestroy\\Tests\\": "tests/",
-            "Workbench\\App\\": "workbench/app/",
             "App\\": "vendor/orchestra/testbench-core/laravel/app"
         }
     },
