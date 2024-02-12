@@ -42,7 +42,8 @@
     "autoload-dev": {
         "psr-4": {
             "Msazzuhair\\LaravelArtisanDestroy\\Tests\\": "tests/",
-            "Workbench\\App\\": "workbench/app/"
+            "Workbench\\App\\": "workbench/app/",
+            "App\\": "vendor/orchestra/testbench-core/laravel/app"
         }
     },
     "scripts": {
