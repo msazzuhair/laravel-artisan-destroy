@@ -1,33 +1,50 @@
-# This is my package laravel-artisan-destroy
+# Artisan Destroy Commands for Laravel 
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/msazzuhair/laravel-artisan-destroy.svg?style=flat-square)](https://packagist.org/packages/msazzuhair/laravel-artisan-destroy)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/msazzuhair/laravel-artisan-destroy/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/msazzuhair/laravel-artisan-destroy/actions?query=workflow%3Arun-tests+branch%3Amain)
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/msazzuhair/laravel-artisan-destroy/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/msazzuhair/laravel-artisan-destroy/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/msazzuhair/laravel-artisan-destroy.svg?style=flat-square)](https://packagist.org/packages/msazzuhair/laravel-artisan-destroy)
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+A missing destroy command for anyone who has second thoughts.
 
-## Support us
+⚠️⚠️ Do not install this package on production environment. ⚠️⚠️
 
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/laravel-artisan-destroy.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/laravel-artisan-destroy)
+## Development Progress
 
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
+| Class        | Destroy Command | Test |
+|--------------|-----------------|------|
+| Cast         | ✅               | ✅    |
+| Channel      | ✅               | ✅    |
+| Component    |                 |      |
+| Console      |                 |      |
+| Event        |                 |      |
+| Exception    |                 |      |
+| Job          |                 |      |
+| Listener     |                 |      |
+| Mail         |                 |      |
+| Model        |                 |      |
+| Notification |                 |      |
+| Observer     |                 |      |
+| Policy       |                 |      |
+| Provider     |                 |      |
+| Request      |                 |      |
+| Resource     |                 |      |
+| Rule         |                 |      |
+| Scope        |                 |      |
+| Test         |                 |      |
+| View         |                 |      |
 
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+
+## Optional Requirements
+
+- Git. This package will check if the file to be deleted is tracked and clean. If git is not installed you'll need to use `--force` option or you can disable git checking through config file. 
 
 ## Installation
 
-You can install the package via composer:
+You can install the package as a dev dependency via composer:
 
 ```bash
-composer require msazzuhair/laravel-artisan-destroy
-```
-
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --tag="laravel-artisan-destroy-migrations"
-php artisan migrate
+composer require --dev msazzuhair/laravel-artisan-destroy
 ```
 
 You can publish the config file with:
@@ -36,24 +53,10 @@ You can publish the config file with:
 php artisan vendor:publish --tag="laravel-artisan-destroy-config"
 ```
 
-This is the contents of the published config file:
-
-```php
-return [
-];
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="laravel-artisan-destroy-views"
-```
-
 ## Usage
 
 ```php
-$laravelArtisanDestroy = new Msazzuhair\LaravelArtisanDestroy();
-echo $laravelArtisanDestroy->echoPhrase('Hello, Msazzuhair!');
+php artisan destroy:model <Model Name>
 ```
 
 ## Testing
