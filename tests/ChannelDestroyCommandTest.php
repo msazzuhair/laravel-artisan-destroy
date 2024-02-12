@@ -1,4 +1,5 @@
 <?php
+
 test('class ChannelDestroyCommand is present', function () {
     expect(class_exists(\Msazzuhair\LaravelArtisanDestroy\Commands\ChannelDestroyCommand::class))->toBeTrue();
 });
@@ -78,10 +79,10 @@ it('shows warning if there are uncommited changes', function () {
     expect(file_exists(\app_path('Broadcasting/DirtyDummyChannel.php')))->toBeTrue();
 
     // Add DirtyDummyChannel.php to git
-    shell_exec('git -C ' . base_path() . ' add ' . \app_path('Broadcasting/DirtyDummyChannel.php'));
+    shell_exec('git -C '.base_path().' add '.\app_path('Broadcasting/DirtyDummyChannel.php'));
 
     // Commit DirtyDummyChannel.php
-    shell_exec('git -C ' . base_path() . ' commit --quiet -m "Add DirtyDummyChannel.php"');
+    shell_exec('git -C '.base_path().' commit --quiet -m "Add DirtyDummyChannel.php"');
 
     // Add some newlines to the file
     $content = file_get_contents(\app_path('Broadcasting/DirtyDummyChannel.php'));
