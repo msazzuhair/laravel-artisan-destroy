@@ -5,7 +5,7 @@ namespace Msazzuhair\LaravelArtisanDestroy\Commands;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputOption;
 
-#[AsCommand(name: 'make:scope')]
+#[AsCommand(name: 'destroy:scope')]
 class ScopeDestroyCommand extends DestroyerCommand
 {
     /**
@@ -13,7 +13,7 @@ class ScopeDestroyCommand extends DestroyerCommand
      *
      * @var string
      */
-    protected $name = 'make:scope';
+    protected $name = 'destroy:scope';
 
     /**
      * The console command description.

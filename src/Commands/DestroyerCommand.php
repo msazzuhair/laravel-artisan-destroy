@@ -48,16 +48,15 @@ abstract class DestroyerCommand extends Command implements PromptsForMissingInpu
 
         $path = $this->getPath($name);
 
-        if (! $this->confirmToProceed($path)) {
+        // Next, We will check to see if the class already exists. If it does not we will
+        // abort the deletion process.
+        if ($this->doesNotExist($this->getNameInput())) {
+            $this->error($this->type . ' "' . $name . '" doesn\'t exist.');
+
             return false;
         }
 
-        // Next, We will check to see if the class already exists. If it does, we don't want
-        // to create the class and overwrite the user's code. So, we will bail out so the
-        // code is untouched. Otherwise, we will continue generating this class' files.
-        if ($this->doesNotExist($this->getNameInput())) {
-            $this->components->error($this->type.' doesn\'t exist.');
-
+        if (! $this->confirmToProceed($path)) {
             return false;
         }
 
@@ -75,7 +74,7 @@ abstract class DestroyerCommand extends Command implements PromptsForMissingInpu
             $path = str_replace('/', '\\', $path);
         }
 
-        $this->components->info(sprintf('%s [%s] deleted successfully.', $info, $path));
+        $this->info(sprintf('%s [%s] deleted successfully.', $info, $path));
     }
 
     /**
@@ -292,27 +291,31 @@ abstract class DestroyerCommand extends Command implements PromptsForMissingInpu
         } elseif (config('artisan-destroy.confirmation', true)) {
             if (config('artisan-destroy.git-tracking-confirmation', true)) {
                 // Check if git is present
-                if (shell_exec('git rev-parse --is-inside-work-tree') == '') {
-                    $this->components->error('Git is not installed or not initialized in this directory. Any deletion will be irreversible.');
+                if (!is_dir(base_path() . '/.git')) {
+                    $this->error('Git is not initialized in this project. Any deletion will be irreversible.');
                 }
 
                 // Check if the file is tracked by git
-                if (shell_exec('git ls-files --error-unmatch '.$path) == '') {
-                    $this->components->error('The file is not tracked by git. Any deletion will be irreversible.');
+                else if (shell_exec('git -C ' . base_path() . ' ls-files ' . $path) == '') {
+                    $this->error('The file is not tracked by git. Any deletion will be irreversible.');
                 }
 
                 // Check if the file has uncommited changes
-                if (shell_exec('git diff --quiet '.$path) != '') {
-                    $this->components->error('The file has uncommited changes. Any deletion will be irreversible.');
+                else if (shell_exec('git -C ' . base_path() . ' diff --name-only ' . $path) != '') {
+                    $this->error('The file has uncommited changes. Any deletion will be irreversible.');
                 }
             }
 
-            return $this->confirm(
+            $confirmation = $this->confirm(
                 'Are you sure you want to proceed?'
             );
-        }
 
-        $this->components->info('Deletion aborted.');
+            if (! $confirmation) {
+                $this->error('Aborted.');
+            }
+
+            return $confirmation;
+        }
 
         return false;
     }

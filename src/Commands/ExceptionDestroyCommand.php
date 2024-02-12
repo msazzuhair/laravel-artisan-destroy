@@ -5,7 +5,7 @@ namespace Msazzuhair\LaravelArtisanDestroy\Commands;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputOption;
 
-#[AsCommand(name: 'make:exception')]
+#[AsCommand(name: 'destroy:exception')]
 class ExceptionDestroyCommand extends DestroyerCommand
 {
     /**
@@ -13,7 +13,7 @@ class ExceptionDestroyCommand extends DestroyerCommand
      *
      * @var string
      */
-    protected $name = 'make:exception';
+    protected $name = 'destroy:exception';
 
     /**
      * The console command description.

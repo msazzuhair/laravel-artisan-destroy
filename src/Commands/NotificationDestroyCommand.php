@@ -6,7 +6,7 @@ use Msazzuhair\LaravelArtisanDestroy\Traits\DeletesMatchingTest;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputOption;
 
-#[AsCommand(name: 'make:notification')]
+#[AsCommand(name: 'destroy:notification')]
 class NotificationDestroyCommand extends DestroyerCommand
 {
     use DeletesMatchingTest;
@@ -16,7 +16,7 @@ class NotificationDestroyCommand extends DestroyerCommand
      *
      * @var string
      */
-    protected $name = 'make:notification';
+    protected $name = 'destroy:notification';
 
     /**
      * The console command description.

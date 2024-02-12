@@ -7,7 +7,7 @@ use Msazzuhair\LaravelArtisanDestroy\Traits\DeletesMatchingTest;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputOption;
 
-#[AsCommand(name: 'make:mail')]
+#[AsCommand(name: 'destroy:mail')]
 class MailDestroyCommand extends DestroyerCommand
 {
     use DeletesMatchingTest;
@@ -17,7 +17,7 @@ class MailDestroyCommand extends DestroyerCommand
      *
      * @var string
      */
-    protected $name = 'make:mail';
+    protected $name = 'destroy:mail';
 
     /**
      * The console command description.

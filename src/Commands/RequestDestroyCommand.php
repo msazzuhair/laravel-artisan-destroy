@@ -5,7 +5,7 @@ namespace Msazzuhair\LaravelArtisanDestroy\Commands;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputOption;
 
-#[AsCommand(name: 'make:request')]
+#[AsCommand(name: 'destroy:request')]
 class RequestDestroyCommand extends DestroyerCommand
 {
     /**
@@ -13,7 +13,7 @@ class RequestDestroyCommand extends DestroyerCommand
      *
      * @var string
      */
-    protected $name = 'make:request';
+    protected $name = 'destroy:request';
 
     /**
      * The console command description.

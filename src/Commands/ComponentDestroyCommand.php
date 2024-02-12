@@ -8,7 +8,7 @@ use Msazzuhair\LaravelArtisanDestroy\Traits\DeletesMatchingTest;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputOption;
 
-#[AsCommand(name: 'make:component')]
+#[AsCommand(name: 'destroy:component')]
 class ComponentDestroyCommand extends DestroyerCommand
 {
     use DeletesMatchingTest;
@@ -18,7 +18,7 @@ class ComponentDestroyCommand extends DestroyerCommand
      *
      * @var string
      */
-    protected $name = 'make:component';
+    protected $name = 'destroy:component';
 
     /**
      * The console command description.
@@ -43,7 +43,7 @@ class ComponentDestroyCommand extends DestroyerCommand
     {
         if ($this->option('view')) {
             $this->writeView(function () {
-                $this->components->info($this->type.' created successfully.');
+                $this->info($this->type.' created successfully.');
             });
 
             return;
@@ -75,7 +75,7 @@ class ComponentDestroyCommand extends DestroyerCommand
         }
 
         if ($this->files->exists($path) && ! $this->option('force')) {
-            $this->components->error('View already exists.');
+            $this->error('View already exists.');
 
             return;
         }

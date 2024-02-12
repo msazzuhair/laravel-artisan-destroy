@@ -10,7 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 use function Laravel\Prompts\suggest;
 
-#[AsCommand(name: 'make:observer')]
+#[AsCommand(name: 'destroy:observer')]
 class ObserverDestroyCommand extends DestroyerCommand
 {
     /**
@@ -18,7 +18,7 @@ class ObserverDestroyCommand extends DestroyerCommand
      *
      * @var string
      */
-    protected $name = 'make:observer';
+    protected $name = 'destroy:observer';
 
     /**
      * The console command description.

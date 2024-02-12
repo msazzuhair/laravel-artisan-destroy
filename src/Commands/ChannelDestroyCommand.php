@@ -5,7 +5,7 @@ namespace Msazzuhair\LaravelArtisanDestroy\Commands;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputOption;
 
-#[AsCommand(name: 'make:channel')]
+#[AsCommand(name: 'destroy:channel')]
 class ChannelDestroyCommand extends DestroyerCommand
 {
     /**
@@ -13,7 +13,7 @@ class ChannelDestroyCommand extends DestroyerCommand
      *
      * @var string
      */
-    protected $name = 'make:channel';
+    protected $name = 'destroy:channel';
 
     /**
      * The console command description.
@@ -28,31 +28,6 @@ class ChannelDestroyCommand extends DestroyerCommand
      * @var string
      */
     protected $type = 'Channel';
-
-    /**
-     * Build the class with the given name.
-     *
-     * @param  string  $name
-     * @return string
-     */
-    protected function buildClass($name)
-    {
-        return str_replace(
-            ['DummyUser', '{{ userModel }}'],
-            class_basename($this->userProviderModel()),
-            parent::buildClass($name)
-        );
-    }
-
-    /**
-     * Get the stub file for the generator.
-     *
-     * @return string
-     */
-    protected function getStub()
-    {
-        return __DIR__.'/stubs/channel.stub';
-    }
 
     /**
      * Get the default namespace for the class.

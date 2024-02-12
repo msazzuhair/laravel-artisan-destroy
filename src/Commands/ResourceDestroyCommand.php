@@ -5,7 +5,7 @@ namespace Msazzuhair\LaravelArtisanDestroy\Commands;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputOption;
 
-#[AsCommand(name: 'make:resource')]
+#[AsCommand(name: 'destroy:resource')]
 class ResourceDestroyCommand extends DestroyerCommand
 {
     /**
@@ -13,7 +13,7 @@ class ResourceDestroyCommand extends DestroyerCommand
      *
      * @var string
      */
-    protected $name = 'make:resource';
+    protected $name = 'destroy:resource';
 
     /**
      * The console command description.

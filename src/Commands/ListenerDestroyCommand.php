@@ -11,7 +11,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 use function Laravel\Prompts\suggest;
 
-#[AsCommand(name: 'make:listener')]
+#[AsCommand(name: 'destroy:listener')]
 class ListenerDestroyCommand extends DestroyerCommand
 {
     use DeletesMatchingTest;
@@ -21,7 +21,7 @@ class ListenerDestroyCommand extends DestroyerCommand
      *
      * @var string
      */
-    protected $name = 'make:listener';
+    protected $name = 'destroy:listener';
 
     /**
      * The console command description.

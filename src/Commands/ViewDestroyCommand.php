@@ -9,7 +9,7 @@ use Msazzuhair\LaravelArtisanDestroy\Traits\DeletesMatchingTest;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputOption;
 
-#[AsCommand(name: 'make:view')]
+#[AsCommand(name: 'destroy:view')]
 class ViewDestroyCommand extends DestroyerCommand
 {
     use DeletesMatchingTest;
@@ -26,7 +26,7 @@ class ViewDestroyCommand extends DestroyerCommand
      *
      * @var string
      */
-    protected $name = 'make:view';
+    protected $name = 'destroy:view';
 
     /**
      * The type of file being generated.

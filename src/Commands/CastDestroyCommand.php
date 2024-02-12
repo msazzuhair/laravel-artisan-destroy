@@ -5,7 +5,7 @@ namespace Msazzuhair\LaravelArtisanDestroy\Commands;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputOption;
 
-#[AsCommand(name: 'make:cast')]
+#[AsCommand(name: 'destroy:cast')]
 class CastDestroyCommand extends DestroyerCommand
 {
     /**
@@ -45,7 +45,7 @@ class CastDestroyCommand extends DestroyerCommand
     protected function getOptions()
     {
         return [
-            ['force', 'f', InputOption::VALUE_NONE, 'Delete the class even if the cast already exists'],
+            ['force', 'f', InputOption::VALUE_NONE, 'Delete the class without prompting for confirmation.'],
             ['inbound', null, InputOption::VALUE_NONE, 'Generate an inbound cast class'],
         ];
     }

@@ -8,7 +8,7 @@ use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
-#[AsCommand(name: 'make:command')]
+#[AsCommand(name: 'destroy:command')]
 class ConsoleDestroyCommand extends DestroyerCommand
 {
     use DeletesMatchingTest;
@@ -18,7 +18,7 @@ class ConsoleDestroyCommand extends DestroyerCommand
      *
      * @var string
      */
-    protected $name = 'make:command';
+    protected $name = 'destroy:command';
 
     /**
      * The console command description.

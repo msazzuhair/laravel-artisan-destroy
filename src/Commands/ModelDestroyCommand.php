@@ -11,7 +11,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 use function Laravel\Prompts\multiselect;
 
-#[AsCommand(name: 'make:model')]
+#[AsCommand(name: 'destroy:model')]
 class ModelDestroyCommand extends DestroyerCommand
 {
     use DeletesMatchingTest;
@@ -21,7 +21,7 @@ class ModelDestroyCommand extends DestroyerCommand
      *
      * @var string
      */
-    protected $name = 'make:model';
+    protected $name = 'destroy:model';
 
     /**
      * The console command description.
@@ -87,7 +87,7 @@ class ModelDestroyCommand extends DestroyerCommand
     {
         $factory = Str::studly($this->argument('name'));
 
-        $this->call('make:factory', [
+        $this->call('destroy:factory', [
             'name' => "{$factory}Factory",
             '--model' => $this->qualifyClass($this->getNameInput()),
         ]);
@@ -106,7 +106,7 @@ class ModelDestroyCommand extends DestroyerCommand
             $table = Str::singular($table);
         }
 
-        $this->call('make:migration', [
+        $this->call('destroy:migration', [
             'name' => "create_{$table}_table",
             '--create' => $table,
         ]);
@@ -121,7 +121,7 @@ class ModelDestroyCommand extends DestroyerCommand
     {
         $seeder = Str::studly(class_basename($this->argument('name')));
 
-        $this->call('make:seeder', [
+        $this->call('destroy:seeder', [
             'name' => "{$seeder}Seeder",
         ]);
     }
@@ -137,7 +137,7 @@ class ModelDestroyCommand extends DestroyerCommand
 
         $modelName = $this->qualifyClass($this->getNameInput());
 
-        $this->call('make:controller', array_filter([
+        $this->call('destroy:controller', array_filter([
             'name' => "{$controller}Controller",
             '--model' => $this->option('resource') || $this->option('api') ? $modelName : null,
             '--api' => $this->option('api'),
@@ -156,7 +156,7 @@ class ModelDestroyCommand extends DestroyerCommand
     {
         $policy = Str::studly(class_basename($this->argument('name')));
 
-        $this->call('make:policy', [
+        $this->call('destroy:policy', [
             'name' => "{$policy}Policy",
             '--model' => $this->qualifyClass($this->getNameInput()),
         ]);

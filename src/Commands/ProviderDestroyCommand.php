@@ -5,7 +5,7 @@ namespace Msazzuhair\LaravelArtisanDestroy\Commands;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputOption;
 
-#[AsCommand(name: 'make:provider')]
+#[AsCommand(name: 'destroy:provider')]
 class ProviderDestroyCommand extends DestroyerCommand
 {
     /**
@@ -13,7 +13,7 @@ class ProviderDestroyCommand extends DestroyerCommand
      *
      * @var string
      */
-    protected $name = 'make:provider';
+    protected $name = 'destroy:provider';
 
     /**
      * The console command description.

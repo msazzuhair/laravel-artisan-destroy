@@ -11,7 +11,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 use function Laravel\Prompts\suggest;
 
-#[AsCommand(name: 'make:policy')]
+#[AsCommand(name: 'destroy:policy')]
 class PolicyDestroyCommand extends DestroyerCommand
 {
     /**
@@ -19,7 +19,7 @@ class PolicyDestroyCommand extends DestroyerCommand
      *
      * @var string
      */
-    protected $name = 'make:policy';
+    protected $name = 'destroy:policy';
 
     /**
      * The console command description.

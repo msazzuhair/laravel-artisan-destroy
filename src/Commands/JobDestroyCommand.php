@@ -6,7 +6,7 @@ use Msazzuhair\LaravelArtisanDestroy\Traits\DeletesMatchingTest;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputOption;
 
-#[AsCommand(name: 'make:job')]
+#[AsCommand(name: 'destroy:job')]
 class JobDestroyCommand extends DestroyerCommand
 {
     use DeletesMatchingTest;
@@ -16,7 +16,7 @@ class JobDestroyCommand extends DestroyerCommand
      *
      * @var string
      */
-    protected $name = 'make:job';
+    protected $name = 'destroy:job';
 
     /**
      * The console command description.

@@ -5,7 +5,7 @@ namespace Msazzuhair\LaravelArtisanDestroy\Commands;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputOption;
 
-#[AsCommand(name: 'make:event')]
+#[AsCommand(name: 'destroy:event')]
 class EventDestroyCommand extends DestroyerCommand
 {
     /**
@@ -13,7 +13,7 @@ class EventDestroyCommand extends DestroyerCommand
      *
      * @var string
      */
-    protected $name = 'make:event';
+    protected $name = 'destroy:event';
 
     /**
      * The console command description.

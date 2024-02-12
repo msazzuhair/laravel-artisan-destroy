@@ -10,7 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 use function Laravel\Prompts\select;
 
-#[AsCommand(name: 'make:test')]
+#[AsCommand(name: 'destroy:test')]
 class TestDestroyCommand extends DestroyerCommand
 {
     /**
@@ -18,7 +18,7 @@ class TestDestroyCommand extends DestroyerCommand
      *
      * @var string
      */
-    protected $name = 'make:test';
+    protected $name = 'destroy:test';
 
     /**
      * The console command description.
