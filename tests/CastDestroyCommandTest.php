@@ -1,4 +1,5 @@
 <?php
+
 test('class CastDestroyCommand is present', function () {
     expect(class_exists(\Msazzuhair\LaravelArtisanDestroy\Commands\CastDestroyCommand::class))->toBeTrue();
 });
@@ -78,10 +79,10 @@ it('shows warning if there are uncommited changes', function () {
     expect(file_exists(\app_path('Casts/DirtyDummyCast.php')))->toBeTrue();
 
     // Add DirtyDummyCast.php to git
-    shell_exec('git -C ' . base_path() . ' add ' . \app_path('Casts/DirtyDummyCast.php'));
+    shell_exec('git -C '.base_path().' add '.\app_path('Casts/DirtyDummyCast.php'));
 
     // Commit DirtyDummyCast.php
-    shell_exec('git -C ' . base_path() . ' commit --quiet -m "Add DirtyDummyCast.php"');
+    shell_exec('git -C '.base_path().' commit --quiet -m "Add DirtyDummyCast.php"');
 
     // Add some newlines to the file
     $content = file_get_contents(\app_path('Casts/DirtyDummyCast.php'));

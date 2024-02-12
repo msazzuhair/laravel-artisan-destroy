@@ -19,4 +19,3 @@ it('shows warning if git is not initialized in current workdir', function () {
     // Check if the generated class does not exist
     expect(file_exists(\app_path('Casts/NoGitDummyCast.php')))->toBeFalse();
 });
-

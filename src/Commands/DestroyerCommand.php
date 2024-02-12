@@ -51,7 +51,7 @@ abstract class DestroyerCommand extends Command implements PromptsForMissingInpu
         // Next, We will check to see if the class already exists. If it does not we will
         // abort the deletion process.
         if ($this->doesNotExist($this->getNameInput())) {
-            $this->error($this->type . ' "' . $name . '" doesn\'t exist.');
+            $this->error($this->type.' "'.$name.'" doesn\'t exist.');
 
             return false;
         }
@@ -291,17 +291,17 @@ abstract class DestroyerCommand extends Command implements PromptsForMissingInpu
         } elseif (config('artisan-destroy.confirmation', true)) {
             if (config('artisan-destroy.git-tracking-confirmation', true)) {
                 // Check if git is present
-                if (!is_dir(base_path() . '/.git')) {
+                if (! is_dir(base_path().'/.git')) {
                     $this->error('Git is not initialized in this project. Any deletion will be irreversible.');
                 }
 
                 // Check if the file is tracked by git
-                else if (shell_exec('git -C ' . base_path() . ' ls-files ' . $path) == '') {
+                elseif (shell_exec('git -C '.base_path().' ls-files '.$path) == '') {
                     $this->error('The file is not tracked by git. Any deletion will be irreversible.');
                 }
 
                 // Check if the file has uncommited changes
-                else if (shell_exec('git -C ' . base_path() . ' diff --name-only ' . $path) != '') {
+                elseif (shell_exec('git -C '.base_path().' diff --name-only '.$path) != '') {
                     $this->error('The file has uncommited changes. Any deletion will be irreversible.');
                 }
             }

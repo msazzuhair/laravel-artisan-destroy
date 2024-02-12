@@ -48,6 +48,4 @@ class TestCase extends Orchestra
 
         shell_exec('rm -rf vendor/orchestra/testbench-core/laravel/.git');
     }
-
-
 }
