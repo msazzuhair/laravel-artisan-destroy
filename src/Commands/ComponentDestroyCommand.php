@@ -2,7 +2,6 @@
 
 namespace Msazzuhair\LaravelArtisanDestroy\Commands;
 
-use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Str;
 use Msazzuhair\LaravelArtisanDestroy\Traits\DeletesMatchingTest;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -69,7 +68,7 @@ class ComponentDestroyCommand extends DestroyerCommand
         $path = $this->viewPath(
             str_replace('.', '/', 'components.'.$this->getView()).'.blade.php'
         );
-        if (!$this->files->exists($path)) {
+        if (! $this->files->exists($path)) {
             $this->error('View does not exist.');
 
             return;
@@ -81,7 +80,6 @@ class ComponentDestroyCommand extends DestroyerCommand
             $onSuccess();
         }
     }
-
 
     /**
      * Get the view name relative to the components directory.
