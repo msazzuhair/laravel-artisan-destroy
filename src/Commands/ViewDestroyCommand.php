@@ -229,7 +229,7 @@ class ViewDestroyCommand extends DestroyerCommand
     {
         return [
             ['extension', null, InputOption::VALUE_OPTIONAL, 'The extension of the generated view', 'blade.php'],
-            ['force', 'f', InputOption::VALUE_NONE, 'Delete the view even if the view already exists'],
+            ['force', 'f', InputOption::VALUE_NONE, 'Delete the view without prompting for confirmation'],
         ];
     }
 }

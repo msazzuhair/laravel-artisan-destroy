@@ -38,59 +38,14 @@ class ListenerDestroyCommand extends DestroyerCommand
     protected $type = 'Listener';
 
     /**
-     * Build the class with the given name.
-     *
-     * @param  string  $name
-     * @return string
-     */
-    protected function buildClass($name)
-    {
-        $event = $this->option('event') ?? '';
-
-        if (! Str::startsWith($event, [
-            $this->laravel->getNamespace(),
-            'Illuminate',
-            '\\',
-        ])) {
-            $event = $this->laravel->getNamespace().'Events\\'.str_replace('/', '\\', $event);
-        }
-
-        $stub = str_replace(
-            ['DummyEvent', '{{ event }}'], class_basename($event), parent::buildClass($name)
-        );
-
-        return str_replace(
-            ['DummyFullEvent', '{{ eventNamespace }}'], trim($event, '\\'), $stub
-        );
-    }
-
-    /**
-     * Get the stub file for the generator.
-     *
-     * @return string
-     */
-    protected function getStub()
-    {
-        if ($this->option('queued')) {
-            return $this->option('event')
-                        ? __DIR__.'/stubs/listener-queued.stub'
-                        : __DIR__.'/stubs/listener-queued-duck.stub';
-        }
-
-        return $this->option('event')
-                    ? __DIR__.'/stubs/listener.stub'
-                    : __DIR__.'/stubs/listener-duck.stub';
-    }
-
-    /**
      * Determine if the class already exists.
      *
      * @param  string  $rawName
      * @return bool
      */
-    protected function alreadyExists($rawName)
+    protected function doesNotExist($rawName)
     {
-        return class_exists($rawName);
+        return ! class_exists($rawName);
     }
 
     /**
@@ -112,9 +67,8 @@ class ListenerDestroyCommand extends DestroyerCommand
     protected function getOptions()
     {
         return [
-            ['event', 'e', InputOption::VALUE_OPTIONAL, 'The event class being listened for'],
-            ['force', 'f', InputOption::VALUE_NONE, 'Delete the class even if the listener already exists'],
-            ['queued', null, InputOption::VALUE_NONE, 'Indicates the event listener should be queued'],
+            ['event', 'e', InputOption::VALUE_OPTIONAL, 'The listened event class that should also be deleted'],
+            ['force', 'f', InputOption::VALUE_NONE, 'Delete the class without prompting for confirmation'],
         ];
     }
 

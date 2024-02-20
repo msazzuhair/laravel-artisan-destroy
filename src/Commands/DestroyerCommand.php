@@ -168,7 +168,7 @@ abstract class DestroyerCommand extends Command implements PromptsForMissingInpu
     /**
      * Determine if the class already exists.
      */
-    protected function doesNotExist(string $rawName)
+    protected function doesNotExist($rawName)
     {
         return ! $this->files->exists($this->getPath($this->qualifyClass($rawName)));
     }

@@ -107,7 +107,7 @@ class TestDestroyCommand extends DestroyerCommand
     protected function getOptions()
     {
         return [
-            ['force', 'f', InputOption::VALUE_NONE, 'Delete the class even if the test already exists'],
+            ['force', 'f', InputOption::VALUE_NONE, 'Delete the class without prompting for confirmation'],
             ['unit', 'u', InputOption::VALUE_NONE, 'Delete a unit test'],
             ['pest', 'p', InputOption::VALUE_NONE, 'Delete a Pest test'],
         ];

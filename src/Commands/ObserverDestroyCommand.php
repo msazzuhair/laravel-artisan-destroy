@@ -138,7 +138,7 @@ class ObserverDestroyCommand extends DestroyerCommand
     protected function getOptions()
     {
         return [
-            ['force', 'f', InputOption::VALUE_NONE, 'Delete the class even if the observer already exists'],
+            ['force', 'f', InputOption::VALUE_NONE, 'Delete the class without prompting for confirmation'],
             ['model', 'm', InputOption::VALUE_OPTIONAL, 'The model that the observer applies to'],
         ];
     }

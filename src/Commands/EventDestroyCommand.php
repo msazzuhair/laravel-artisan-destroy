@@ -33,33 +33,10 @@ class EventDestroyCommand extends DestroyerCommand
      * @param  string  $rawName
      * @return bool
      */
-    protected function alreadyExists($rawName)
+    protected function doesNotExist($rawName)
     {
-        return class_exists($rawName) ||
-            $this->files->exists($this->getPath($this->qualifyClass($rawName)));
-    }
-
-    /**
-     * Get the stub file for the generator.
-     *
-     * @return string
-     */
-    protected function getStub()
-    {
-        return $this->resolveStubPath('/stubs/event.stub');
-    }
-
-    /**
-     * Resolve the fully-qualified path to the stub.
-     *
-     * @param  string  $stub
-     * @return string
-     */
-    protected function resolveStubPath($stub)
-    {
-        return file_exists($customPath = $this->laravel->basePath(trim($stub, '/')))
-                        ? $customPath
-                        : __DIR__.$stub;
+        return ! class_exists($rawName) &&
+            ! $this->files->exists($this->getPath($this->qualifyClass($rawName)));
     }
 
     /**
@@ -81,7 +58,7 @@ class EventDestroyCommand extends DestroyerCommand
     protected function getOptions()
     {
         return [
-            ['force', 'f', InputOption::VALUE_NONE, 'Delete the class even if the event already exists'],
+            ['force', 'f', InputOption::VALUE_NONE, 'Delete the class without prompting for confirmation'],
         ];
     }
 }

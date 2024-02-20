@@ -42,7 +42,7 @@ class ComponentDestroyCommand extends DestroyerCommand
     public function handle()
     {
         if ($this->option('view')) {
-            $this->writeView(function () {
+            $this->deleteView(function () {
                 $this->info($this->type.' created successfully.');
             });
 
@@ -54,7 +54,7 @@ class ComponentDestroyCommand extends DestroyerCommand
         }
 
         if (! $this->option('inline')) {
-            $this->writeView();
+            $this->deleteView();
         }
     }
 
@@ -64,56 +64,24 @@ class ComponentDestroyCommand extends DestroyerCommand
      * @param  callable|null  $onSuccess
      * @return void
      */
-    protected function writeView($onSuccess = null)
+    protected function deleteView($onSuccess = null)
     {
         $path = $this->viewPath(
             str_replace('.', '/', 'components.'.$this->getView()).'.blade.php'
         );
-
-        if (! $this->files->isDirectory(dirname($path))) {
-            $this->files->makeDirectory(dirname($path), 0777, true, true);
-        }
-
-        if ($this->files->exists($path) && ! $this->option('force')) {
-            $this->error('View already exists.');
+        if (!$this->files->exists($path)) {
+            $this->error('View does not exist.');
 
             return;
         }
 
-        file_put_contents(
-            $path,
-            '<div>
-    <!-- '.Inspiring::quotes()->random().' -->
-</div>'
-        );
+        $this->files->delete($path);
 
         if ($onSuccess) {
             $onSuccess();
         }
     }
 
-    /**
-     * Build the class with the given name.
-     *
-     * @param  string  $name
-     * @return string
-     */
-    protected function buildClass($name)
-    {
-        if ($this->option('inline')) {
-            return str_replace(
-                ['DummyView', '{{ view }}'],
-                "<<<'blade'\n<div>\n    <!-- ".Inspiring::quotes()->random()." -->\n</div>\nblade",
-                parent::buildClass($name)
-            );
-        }
-
-        return str_replace(
-            ['DummyView', '{{ view }}'],
-            'view(\'components.'.$this->getView().'\')',
-            parent::buildClass($name)
-        );
-    }
 
     /**
      * Get the view name relative to the components directory.
@@ -129,29 +97,6 @@ class ComponentDestroyCommand extends DestroyerCommand
                 return Str::kebab($part);
             })
             ->implode('.');
-    }
-
-    /**
-     * Get the stub file for the generator.
-     *
-     * @return string
-     */
-    protected function getStub()
-    {
-        return $this->resolveStubPath('/stubs/view-component.stub');
-    }
-
-    /**
-     * Resolve the fully-qualified path to the stub.
-     *
-     * @param  string  $stub
-     * @return string
-     */
-    protected function resolveStubPath($stub)
-    {
-        return file_exists($customPath = $this->laravel->basePath(trim($stub, '/')))
-                        ? $customPath
-                        : __DIR__.$stub;
     }
 
     /**
@@ -173,7 +118,7 @@ class ComponentDestroyCommand extends DestroyerCommand
     protected function getOptions()
     {
         return [
-            ['force', 'f', InputOption::VALUE_NONE, 'Delete the class even if the component already exists'],
+            ['force', 'f', InputOption::VALUE_NONE, 'Delete the class without prompting for confirmation'],
             ['inline', null, InputOption::VALUE_NONE, 'Delete a component that renders an inline view'],
             ['view', null, InputOption::VALUE_NONE, 'Delete an anonymous component with only a view'],
         ];

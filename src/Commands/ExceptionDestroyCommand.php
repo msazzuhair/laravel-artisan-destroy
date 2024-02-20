@@ -30,32 +30,14 @@ class ExceptionDestroyCommand extends DestroyerCommand
     protected $type = 'Exception';
 
     /**
-     * Get the stub file for the generator.
-     *
-     * @return string
-     */
-    protected function getStub()
-    {
-        if ($this->option('render')) {
-            return $this->option('report')
-                ? __DIR__.'/stubs/exception-render-report.stub'
-                : __DIR__.'/stubs/exception-render.stub';
-        }
-
-        return $this->option('report')
-            ? __DIR__.'/stubs/exception-report.stub'
-            : __DIR__.'/stubs/exception.stub';
-    }
-
-    /**
      * Determine if the class already exists.
      *
      * @param  string  $rawName
      * @return bool
      */
-    protected function alreadyExists($rawName)
+    protected function doesNotExist($rawName)
     {
-        return class_exists($this->rootNamespace().'Exceptions\\'.$rawName);
+        return ! class_exists($this->rootNamespace().'Exceptions\\'.$rawName);
     }
 
     /**
@@ -77,9 +59,7 @@ class ExceptionDestroyCommand extends DestroyerCommand
     protected function getOptions()
     {
         return [
-            ['force', 'f', InputOption::VALUE_NONE, 'Delete the class even if the exception already exists'],
-            ['render', null, InputOption::VALUE_NONE, 'Delete the exception with an empty render method'],
-            ['report', null, InputOption::VALUE_NONE, 'Delete the exception with an empty report method'],
+            ['force', 'f', InputOption::VALUE_NONE, 'Delete the class without prompting for confirmation'],
         ];
     }
 }

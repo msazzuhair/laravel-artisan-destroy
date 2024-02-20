@@ -215,7 +215,7 @@ class ModelDestroyCommand extends DestroyerCommand
             ['all', 'a', InputOption::VALUE_NONE, 'Delete a migration, seeder, factory, policy, resource controller, and form request classes for the model'],
             ['controller', 'c', InputOption::VALUE_NONE, 'Delete a controller for the model'],
             ['factory', 'f', InputOption::VALUE_NONE, 'Delete a factory for the model'],
-            ['force', null, InputOption::VALUE_NONE, 'Delete the class even if the model already exists'],
+            ['force', null, InputOption::VALUE_NONE, 'Delete the class without prompting for confirmation'],
             ['migration', 'm', InputOption::VALUE_NONE, 'Delete a migration file for the model'],
             ['morph-pivot', null, InputOption::VALUE_NONE, 'Indicates if the generated model should be a custom polymorphic intermediate table model'],
             ['policy', null, InputOption::VALUE_NONE, 'Delete a policy for the model'],

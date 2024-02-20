@@ -98,7 +98,7 @@ class ResourceDestroyCommand extends DestroyerCommand
     protected function getOptions()
     {
         return [
-            ['force', 'f', InputOption::VALUE_NONE, 'Delete the class even if the resource already exists'],
+            ['force', 'f', InputOption::VALUE_NONE, 'Delete the class without prompting for confirmation'],
             ['collection', 'c', InputOption::VALUE_NONE, 'Delete a resource collection'],
         ];
     }

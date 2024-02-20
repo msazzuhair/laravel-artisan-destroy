@@ -35,36 +35,6 @@ class ConsoleDestroyCommand extends DestroyerCommand
     protected $type = 'Console command';
 
     /**
-     * Replace the class name for the given stub.
-     *
-     * @param  string  $stub
-     * @param  string  $name
-     * @return string
-     */
-    protected function replaceClass($stub, $name)
-    {
-        $stub = parent::replaceClass($stub, $name);
-
-        $command = $this->option('command') ?: 'app:'.Str::of($name)->classBasename()->kebab()->value();
-
-        return str_replace(['dummy:command', '{{ command }}'], $command, $stub);
-    }
-
-    /**
-     * Get the stub file for the generator.
-     *
-     * @return string
-     */
-    protected function getStub()
-    {
-        $relativePath = '/stubs/console.stub';
-
-        return file_exists($customPath = $this->laravel->basePath(trim($relativePath, '/')))
-            ? $customPath
-            : __DIR__.$relativePath;
-    }
-
-    /**
      * Get the default namespace for the class.
      *
      * @param  string  $rootNamespace
@@ -92,8 +62,7 @@ class ConsoleDestroyCommand extends DestroyerCommand
     protected function getOptions()
     {
         return [
-            ['force', 'f', InputOption::VALUE_NONE, 'Delete the class even if the console command already exists'],
-            ['command', null, InputOption::VALUE_OPTIONAL, 'The terminal command that will be used to invoke the class'],
+            ['force', 'f', InputOption::VALUE_NONE, 'Delete the class without prompting for confirmation'],
         ];
     }
 }

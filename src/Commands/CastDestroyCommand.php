@@ -45,8 +45,7 @@ class CastDestroyCommand extends DestroyerCommand
     protected function getOptions()
     {
         return [
-            ['force', 'f', InputOption::VALUE_NONE, 'Delete the class without prompting for confirmation.'],
-            ['inbound', null, InputOption::VALUE_NONE, 'Generate an inbound cast class'],
+            ['force', 'f', InputOption::VALUE_NONE, 'Delete the class without prompting for confirmation'],
         ];
     }
 }
