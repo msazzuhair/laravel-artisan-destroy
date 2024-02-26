@@ -58,23 +58,23 @@ class ModelDestroyCommand extends DestroyerCommand
         }
 
         if ($this->option('factory')) {
-            $this->createFactory();
+            $this->deleteFactory();
         }
 
         if ($this->option('migration')) {
-            $this->createMigration();
+            $this->deleteMigration();
         }
 
         if ($this->option('seed')) {
-            $this->createSeeder();
+            $this->deleteSeeder();
         }
 
         if ($this->option('controller') || $this->option('resource') || $this->option('api')) {
-            $this->createController();
+            $this->deleteController();
         }
 
         if ($this->option('policy')) {
-            $this->createPolicy();
+            $this->deletePolicy();
         }
     }
 
@@ -83,7 +83,7 @@ class ModelDestroyCommand extends DestroyerCommand
      *
      * @return void
      */
-    protected function createFactory()
+    protected function deleteFactory()
     {
         $factory = Str::studly($this->argument('name'));
 
@@ -98,7 +98,7 @@ class ModelDestroyCommand extends DestroyerCommand
      *
      * @return void
      */
-    protected function createMigration()
+    protected function deleteMigration()
     {
         $table = Str::snake(Str::pluralStudly(class_basename($this->argument('name'))));
 
@@ -117,7 +117,7 @@ class ModelDestroyCommand extends DestroyerCommand
      *
      * @return void
      */
-    protected function createSeeder()
+    protected function deleteSeeder()
     {
         $seeder = Str::studly(class_basename($this->argument('name')));
 
@@ -131,7 +131,7 @@ class ModelDestroyCommand extends DestroyerCommand
      *
      * @return void
      */
-    protected function createController()
+    protected function deleteController()
     {
         $controller = Str::studly(class_basename($this->argument('name')));
 
@@ -152,7 +152,7 @@ class ModelDestroyCommand extends DestroyerCommand
      *
      * @return void
      */
-    protected function createPolicy()
+    protected function deletePolicy()
     {
         $policy = Str::studly(class_basename($this->argument('name')));
 
@@ -217,12 +217,8 @@ class ModelDestroyCommand extends DestroyerCommand
             ['factory', 'f', InputOption::VALUE_NONE, 'Delete a factory for the model'],
             ['force', null, InputOption::VALUE_NONE, 'Delete the class without prompting for confirmation'],
             ['migration', 'm', InputOption::VALUE_NONE, 'Delete a migration file for the model'],
-            ['morph-pivot', null, InputOption::VALUE_NONE, 'Indicates if the generated model should be a custom polymorphic intermediate table model'],
             ['policy', null, InputOption::VALUE_NONE, 'Delete a policy for the model'],
             ['seed', 's', InputOption::VALUE_NONE, 'Delete a seeder for the model'],
-            ['pivot', 'p', InputOption::VALUE_NONE, 'Indicates if the generated model should be a custom intermediate table model'],
-            ['resource', 'r', InputOption::VALUE_NONE, 'Indicates if the generated controller should be a resource controller'],
-            ['api', null, InputOption::VALUE_NONE, 'Indicates if the generated controller should be an API resource controller'],
             ['requests', 'R', InputOption::VALUE_NONE, 'Delete new form request classes and use them in the resource controller'],
         ];
     }
@@ -238,7 +234,7 @@ class ModelDestroyCommand extends DestroyerCommand
             return;
         }
 
-        collect(multiselect('Would you like any of the following?', [
+        collect(multiselect('Would you like to also delete any of the following?', [
             'seed' => 'Database Seeder',
             'factory' => 'Factory',
             'requests' => 'Form Requests',

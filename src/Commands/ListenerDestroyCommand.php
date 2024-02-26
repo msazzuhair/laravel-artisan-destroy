@@ -66,7 +66,7 @@ class ListenerDestroyCommand extends DestroyerCommand
     protected function getOptions()
     {
         return [
-            ['event', 'e', InputOption::VALUE_OPTIONAL, 'The listened event class that should also be deleted'],
+            ['event', 'e', InputOption::VALUE_OPTIONAL, 'Delete this listener event class'],
             ['force', 'f', InputOption::VALUE_NONE, 'Delete the class without prompting for confirmation'],
         ];
     }
@@ -83,7 +83,7 @@ class ListenerDestroyCommand extends DestroyerCommand
         }
 
         $event = suggest(
-            'What event should be listened for? (Optional)',
+            'What is the name of the event class that should be deleted? (Optional)',
             $this->possibleEvents(),
         );
 
