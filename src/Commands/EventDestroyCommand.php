@@ -9,6 +9,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Finder\Finder;
+
 use function Laravel\Prompts\suggest;
 
 #[AsCommand(name: 'destroy:event')]
@@ -37,6 +38,7 @@ class EventDestroyCommand extends DestroyerCommand
      * Execute the console command.
      *
      * @return void
+     *
      * @throws FileNotFoundException
      */
     public function handle()
