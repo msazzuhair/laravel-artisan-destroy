@@ -11,6 +11,7 @@ use Msazzuhair\LaravelArtisanDestroy\Commands\ExceptionDestroyCommand;
 use Msazzuhair\LaravelArtisanDestroy\Commands\JobDestroyCommand;
 use Msazzuhair\LaravelArtisanDestroy\Commands\ListenerDestroyCommand;
 use Msazzuhair\LaravelArtisanDestroy\Commands\MailDestroyCommand;
+use Msazzuhair\LaravelArtisanDestroy\Commands\Migrations\MigrateDestroyCommand;
 use Msazzuhair\LaravelArtisanDestroy\Commands\ModelDestroyCommand;
 use Msazzuhair\LaravelArtisanDestroy\Commands\NotificationDestroyCommand;
 use Msazzuhair\LaravelArtisanDestroy\Commands\ObserverDestroyCommand;
@@ -18,6 +19,8 @@ use Msazzuhair\LaravelArtisanDestroy\Commands\PolicyDestroyCommand;
 use Msazzuhair\LaravelArtisanDestroy\Commands\ProviderDestroyCommand;
 use Msazzuhair\LaravelArtisanDestroy\Commands\RequestDestroyCommand;
 use Msazzuhair\LaravelArtisanDestroy\Commands\ResourceDestroyCommand;
+use Msazzuhair\LaravelArtisanDestroy\Commands\Routing\ControllerDestroyCommand;
+use Msazzuhair\LaravelArtisanDestroy\Commands\Routing\MiddlewareDestroyCommand;
 use Msazzuhair\LaravelArtisanDestroy\Commands\RuleDestroyCommand;
 use Msazzuhair\LaravelArtisanDestroy\Commands\ScopeDestroyCommand;
 use Msazzuhair\LaravelArtisanDestroy\Commands\TestDestroyCommand;
@@ -42,11 +45,14 @@ class LaravelArtisanDestroyServiceProvider extends PackageServiceProvider
                 ChannelDestroyCommand::class,
                 ComponentDestroyCommand::class,
                 ConsoleDestroyCommand::class,
+                ControllerDestroyCommand::class,
                 EventDestroyCommand::class,
                 ExceptionDestroyCommand::class,
                 JobDestroyCommand::class,
                 ListenerDestroyCommand::class,
                 MailDestroyCommand::class,
+                MiddlewareDestroyCommand::class,
+                MigrateDestroyCommand::class,
                 ModelDestroyCommand::class,
                 NotificationDestroyCommand::class,
                 ObserverDestroyCommand::class,
