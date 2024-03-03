@@ -45,7 +45,7 @@ class MailDestroyCommand extends DestroyerCommand
         }
 
         if ($this->option('markdown') !== false) {
-            $this->writeMarkdownTemplate();
+            $this->deleteMarkdownTemplate();
         }
     }
 
@@ -54,38 +54,13 @@ class MailDestroyCommand extends DestroyerCommand
      *
      * @return void
      */
-    protected function writeMarkdownTemplate()
+    protected function deleteMarkdownTemplate()
     {
         $path = $this->viewPath(
             str_replace('.', '/', $this->getView()).'.blade.php'
         );
 
-        if (! $this->files->isDirectory(dirname($path))) {
-            $this->files->makeDirectory(dirname($path), 0755, true);
-        }
-
-        $this->files->put($path, file_get_contents(__DIR__.'/stubs/markdown.stub'));
-    }
-
-    /**
-     * Build the class with the given name.
-     *
-     * @param  string  $name
-     * @return string
-     */
-    protected function buildClass($name)
-    {
-        $class = str_replace(
-            '{{ subject }}',
-            Str::headline(str_replace($this->getNamespace($name).'\\', '', $name)),
-            parent::buildClass($name)
-        );
-
-        if ($this->option('markdown') !== false) {
-            $class = str_replace(['DummyView', '{{ view }}'], $this->getView(), $class);
-        }
-
-        return $class;
+        $this->files->delete($path);
     }
 
     /**
@@ -106,32 +81,6 @@ class MailDestroyCommand extends DestroyerCommand
         }
 
         return $view;
-    }
-
-    /**
-     * Get the stub file for the generator.
-     *
-     * @return string
-     */
-    protected function getStub()
-    {
-        return $this->resolveStubPath(
-            $this->option('markdown') !== false
-                ? '/stubs/markdown-mail.stub'
-                : '/stubs/mail.stub');
-    }
-
-    /**
-     * Resolve the fully-qualified path to the stub.
-     *
-     * @param  string  $stub
-     * @return string
-     */
-    protected function resolveStubPath($stub)
-    {
-        return file_exists($customPath = $this->laravel->basePath(trim($stub, '/')))
-            ? $customPath
-            : __DIR__.$stub;
     }
 
     /**
