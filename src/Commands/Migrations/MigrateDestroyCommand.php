@@ -4,11 +4,9 @@ namespace Msazzuhair\LaravelArtisanDestroy\Commands\Migrations;
 
 use Illuminate\Contracts\Console\PromptsForMissingInput;
 use Illuminate\Database\Console\Migrations\BaseCommand;
-use Illuminate\Database\Console\Migrations\TableGuesser;
 use Illuminate\Support\Composer;
 use Illuminate\Support\Str;
 use Symfony\Component\Finder\Finder;
-use function Laravel\Prompts\suggest;
 
 class MigrateDestroyCommand extends BaseCommand implements PromptsForMissingInput
 {
@@ -48,8 +46,6 @@ class MigrateDestroyCommand extends BaseCommand implements PromptsForMissingInpu
     /**
      * Create a new migration install command instance.
      *
-     * @param  \Msazzuhair\LaravelArtisanDestroy\Commands\Migrations\MigrationDestroyer  $destroyer
-     * @param  \Illuminate\Support\Composer  $composer
      * @return void
      */
     public function __construct(MigrationDestroyer $destroyer, Composer $composer)
@@ -76,8 +72,9 @@ class MigrateDestroyCommand extends BaseCommand implements PromptsForMissingInpu
         $possibleMigrations = $this->possibleMigrations();
         if (count($possibleMigrations) === 0) {
             $this->components->info('No migrations found.');
+
             return false;
-        } else if (count($possibleMigrations) === 1) {
+        } elseif (count($possibleMigrations) === 1) {
             $migration = $possibleMigrations[0];
         } else {
             $migration = $this->choice(
@@ -86,7 +83,7 @@ class MigrateDestroyCommand extends BaseCommand implements PromptsForMissingInpu
             );
         }
 
-        if (! $this->confirmToProceed($this->getMigrationPath() . '/' . $migration . '.php')) {
+        if (! $this->confirmToProceed($this->getMigrationPath().'/'.$migration.'.php')) {
             return false;
         }
 
@@ -96,10 +93,11 @@ class MigrateDestroyCommand extends BaseCommand implements PromptsForMissingInpu
     /**
      * Write the migration file to disk.
      *
-     * @param string $name
-     * @param string $table
-     * @param bool $create
+     * @param  string  $name
+     * @param  string  $table
+     * @param  bool  $create
      * @return void
+     *
      * @throws \Exception
      */
     protected function deleteMigration($name)
@@ -142,7 +140,7 @@ class MigrateDestroyCommand extends BaseCommand implements PromptsForMissingInpu
 
         $name = Str::snake(trim($this->input->getArgument('name')));
 
-        return collect(Finder::create()->files()->name('/' . $name . '/')->depth(0)->in($migrationPath))
+        return collect(Finder::create()->files()->name('/'.$name.'/')->depth(0)->in($migrationPath))
             ->map(fn ($file) => $file->getBasename('.php'))
             ->sort()
             ->values()

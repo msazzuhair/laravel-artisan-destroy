@@ -9,9 +9,8 @@ use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+
 use function Laravel\Prompts\confirm;
-use function Laravel\Prompts\select;
-use function Laravel\Prompts\suggest;
 
 #[AsCommand(name: 'destroy:controller')]
 class ControllerDestroyCommand extends DestroyerCommand
@@ -113,7 +112,6 @@ class ControllerDestroyCommand extends DestroyerCommand
     /**
      * Build the model replacement values.
      *
-     * @param  array  $replace
      * @return array
      */
     protected function deleteModelReplacements(array $replace)
@@ -159,7 +157,6 @@ class ControllerDestroyCommand extends DestroyerCommand
     /**
      * Build the model replacement values.
      *
-     * @param  array  $replace
      * @param  string  $modelClass
      * @return array
      */
@@ -221,8 +218,6 @@ class ControllerDestroyCommand extends DestroyerCommand
     /**
      * Interact further with the user if they were prompted for missing arguments.
      *
-     * @param  \Symfony\Component\Console\Input\InputInterface  $input
-     * @param  \Symfony\Component\Console\Output\OutputInterface  $output
      * @return void
      */
     protected function afterPromptingForMissingArguments(InputInterface $input, OutputInterface $output)

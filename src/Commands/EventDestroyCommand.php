@@ -10,8 +10,6 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Finder\Finder;
 
-use function Laravel\Prompts\suggest;
-
 #[AsCommand(name: 'destroy:event')]
 class EventDestroyCommand extends DestroyerCommand
 {

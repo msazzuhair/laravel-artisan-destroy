@@ -6,7 +6,6 @@ use Closure;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Str;
-use InvalidArgumentException;
 
 class MigrationDestroyer
 {
@@ -27,7 +26,6 @@ class MigrationDestroyer
     /**
      * Create a new migration creator instance.
      *
-     * @param  \Illuminate\Filesystem\Filesystem  $files
      * @param  string  $customStubPath
      * @return void
      */
@@ -66,8 +64,8 @@ class MigrationDestroyer
     /**
      * Ensure that a migration with the given name doesn't already exist.
      *
-     * @param string $name
-     * @param string $migrationPath
+     * @param  string  $name
+     * @param  string  $migrationPath
      * @return void
      *
      * @throws \InvalidArgumentException
@@ -124,7 +122,6 @@ class MigrationDestroyer
     /**
      * Register a post migration create hook.
      *
-     * @param  \Closure  $callback
      * @return void
      */
     public function afterCreate(Closure $callback)
