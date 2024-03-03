@@ -283,7 +283,7 @@ abstract class DestroyerCommand extends Command implements PromptsForMissingInpu
         ];
     }
 
-    private function confirmToProceed($path)
+    protected function confirmToProceed($path)
     {
         // If force option is used, we don't need confirmation
         if ($this->option('force')) {
@@ -307,7 +307,7 @@ abstract class DestroyerCommand extends Command implements PromptsForMissingInpu
             }
 
             $confirmation = $this->confirm(
-                'Are you sure you want to proceed?'
+                'Are you sure you want to delete '.$path.'?'
             );
 
             if (! $confirmation) {
