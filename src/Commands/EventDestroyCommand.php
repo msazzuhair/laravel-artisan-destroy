@@ -109,7 +109,7 @@ class EventDestroyCommand extends DestroyerCommand
     }
 
     /**
-     * Get a list of possible event names.
+     * Get a list of possible listener names.
      *
      * @return array<int, string>
      */
@@ -135,17 +135,17 @@ class EventDestroyCommand extends DestroyerCommand
      */
     protected function afterPromptingForMissingArguments(InputInterface $input, OutputInterface $output)
     {
-        if ($this->isReservedName($this->getNameInput()) || $this->didReceiveOptions($input)) {
+        if ($this->didReceiveOptions($input)) {
             return;
         }
 
-        $event = suggest(
+        $listeners = $this->choice(
             'What is the name of the listener class that should be deleted? (Optional)',
             $this->possibleListeners(),
         );
 
-        if ($event) {
-            $input->setOption('event', $event);
+        if ($listeners) {
+            $input->setOption('listener', $listeners);
         }
     }
 }
