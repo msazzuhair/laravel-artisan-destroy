@@ -15,24 +15,24 @@ A missing destroy command for anyone who has second thoughts.
 |--------------|-----------------|------|
 | Cast         | ✅               | ✅    |
 | Channel      | ✅               | ✅    |
-| Component    |                 |      |
-| Console      |                 |      |
-| Event        |                 |      |
-| Exception    |                 |      |
-| Job          |                 |      |
-| Listener     |                 |      |
-| Mail         |                 |      |
-| Model        |                 |      |
-| Notification |                 |      |
-| Observer     |                 |      |
-| Policy       |                 |      |
-| Provider     |                 |      |
-| Request      |                 |      |
-| Resource     |                 |      |
-| Rule         |                 |      |
-| Scope        |                 |      |
-| Test         |                 |      |
-| View         |                 |      |
+| Component    | ✅               |      |
+| Console      | ✅               |      |
+| Event        | ✅               |      |
+| Exception    | ✅               |      |
+| Job          | ✅               |      |
+| Listener     | ✅               |      |
+| Mail         | ✅               |      |
+| Model        | ✅               |      |
+| Notification | ✅               |      |
+| Observer     | ✅               |      |
+| Policy       | ✅               |      |
+| Provider     | ✅               |      |
+| Request      | ✅               |      |
+| Resource     | ✅               |      |
+| Rule         | ✅               |      |
+| Scope        | ✅               |      |
+| Test         | ✅               |      |
+| View         | ✅               |      |
 
 
 ## Optional Requirements
