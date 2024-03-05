@@ -44,7 +44,7 @@ class ModelDestroyCommand extends DestroyerCommand
      */
     public function handle()
     {
-        if (parent::handle() === false && ! $this->option('force')) {
+        if (parent::handle() === false) {
             return false;
         }
 
@@ -54,7 +54,6 @@ class ModelDestroyCommand extends DestroyerCommand
             $this->input->setOption('migration', true);
             $this->input->setOption('controller', true);
             $this->input->setOption('policy', true);
-            $this->input->setOption('resource', true);
         }
 
         if ($this->option('factory')) {
@@ -69,7 +68,7 @@ class ModelDestroyCommand extends DestroyerCommand
             $this->deleteSeeder();
         }
 
-        if ($this->option('controller') || $this->option('resource') || $this->option('api')) {
+        if ($this->option('controller')) {
             $this->deleteController();
         }
 
@@ -89,7 +88,7 @@ class ModelDestroyCommand extends DestroyerCommand
 
         $this->call('destroy:factory', [
             'name' => "{$factory}Factory",
-            '--model' => $this->qualifyClass($this->getNameInput()),
+            '--force' => $this->option('force'),
         ]);
     }
 
@@ -102,13 +101,9 @@ class ModelDestroyCommand extends DestroyerCommand
     {
         $table = Str::snake(Str::pluralStudly(class_basename($this->argument('name'))));
 
-        if ($this->option('pivot')) {
-            $table = Str::singular($table);
-        }
-
         $this->call('destroy:migration', [
             'name' => "create_{$table}_table",
-            '--create' => $table,
+            '--force' => $this->option('force'),
         ]);
     }
 
@@ -123,6 +118,7 @@ class ModelDestroyCommand extends DestroyerCommand
 
         $this->call('destroy:seeder', [
             'name' => "{$seeder}Seeder",
+            '--force' => $this->option('force'),
         ]);
     }
 
@@ -139,11 +135,10 @@ class ModelDestroyCommand extends DestroyerCommand
 
         $this->call('destroy:controller', array_filter([
             'name' => "{$controller}Controller",
-            '--model' => $this->option('resource') || $this->option('api') ? $modelName : null,
-            '--api' => $this->option('api'),
+            '--force' => $this->option('force'),
+            '--model-name' => $modelName,
             '--requests' => $this->option('requests') || $this->option('all'),
             '--test' => $this->option('test'),
-            '--pest' => $this->option('pest'),
         ]));
     }
 
@@ -158,39 +153,8 @@ class ModelDestroyCommand extends DestroyerCommand
 
         $this->call('destroy:policy', [
             'name' => "{$policy}Policy",
-            '--model' => $this->qualifyClass($this->getNameInput()),
+            '--force' => $this->option('force'),
         ]);
-    }
-
-    /**
-     * Get the stub file for the generator.
-     *
-     * @return string
-     */
-    protected function getStub()
-    {
-        if ($this->option('pivot')) {
-            return $this->resolveStubPath('/stubs/model.pivot.stub');
-        }
-
-        if ($this->option('morph-pivot')) {
-            return $this->resolveStubPath('/stubs/model.morph-pivot.stub');
-        }
-
-        return $this->resolveStubPath('/stubs/model.stub');
-    }
-
-    /**
-     * Resolve the fully-qualified path to the stub.
-     *
-     * @param  string  $stub
-     * @return string
-     */
-    protected function resolveStubPath($stub)
-    {
-        return file_exists($customPath = $this->laravel->basePath(trim($stub, '/')))
-                        ? $customPath
-                        : __DIR__.$stub;
     }
 
     /**
@@ -220,6 +184,7 @@ class ModelDestroyCommand extends DestroyerCommand
             ['policy', null, InputOption::VALUE_NONE, 'Delete a policy for the model'],
             ['seed', 's', InputOption::VALUE_NONE, 'Delete a seeder for the model'],
             ['requests', 'R', InputOption::VALUE_NONE, 'Delete new form request classes and use them in the resource controller'],
+            ['test', 't', InputOption::VALUE_NONE, 'Delete any accompanying PHPUnit test for the model and every related classes that is going to also be deleted'],
         ];
     }
 
@@ -237,10 +202,11 @@ class ModelDestroyCommand extends DestroyerCommand
         collect(multiselect('Would you like to also delete any of the following?', [
             'seed' => 'Database Seeder',
             'factory' => 'Factory',
-            'requests' => 'Form Requests',
             'migration' => 'Migration',
             'policy' => 'Policy',
-            'resource' => 'Resource Controller',
+            'controller' => 'Controller',
+            'requests' => 'Form Requests',
+            'test' => 'PHPUnit Test',
         ]))->each(fn ($option) => $input->setOption($option, true));
     }
 }

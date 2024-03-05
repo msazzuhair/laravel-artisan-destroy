@@ -1,6 +1,6 @@
 <?php
 
-namespace Msazzuhair\LaravelArtisanDestroy\Commands\Migrations;
+namespace Msazzuhair\LaravelArtisanDestroy\Commands\Database\Migrations;
 
 use Closure;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;

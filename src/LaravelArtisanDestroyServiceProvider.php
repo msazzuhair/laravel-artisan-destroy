@@ -6,12 +6,14 @@ use Msazzuhair\LaravelArtisanDestroy\Commands\CastDestroyCommand;
 use Msazzuhair\LaravelArtisanDestroy\Commands\ChannelDestroyCommand;
 use Msazzuhair\LaravelArtisanDestroy\Commands\ComponentDestroyCommand;
 use Msazzuhair\LaravelArtisanDestroy\Commands\ConsoleDestroyCommand;
+use Msazzuhair\LaravelArtisanDestroy\Commands\Database\Factories\FactoryDestroyCommand;
+use Msazzuhair\LaravelArtisanDestroy\Commands\Database\Migrations\MigrateDestroyCommand;
+use Msazzuhair\LaravelArtisanDestroy\Commands\Database\Seeds\SeederDestroyCommand;
 use Msazzuhair\LaravelArtisanDestroy\Commands\EventDestroyCommand;
 use Msazzuhair\LaravelArtisanDestroy\Commands\ExceptionDestroyCommand;
 use Msazzuhair\LaravelArtisanDestroy\Commands\JobDestroyCommand;
 use Msazzuhair\LaravelArtisanDestroy\Commands\ListenerDestroyCommand;
 use Msazzuhair\LaravelArtisanDestroy\Commands\MailDestroyCommand;
-use Msazzuhair\LaravelArtisanDestroy\Commands\Migrations\MigrateDestroyCommand;
 use Msazzuhair\LaravelArtisanDestroy\Commands\ModelDestroyCommand;
 use Msazzuhair\LaravelArtisanDestroy\Commands\NotificationDestroyCommand;
 use Msazzuhair\LaravelArtisanDestroy\Commands\ObserverDestroyCommand;
@@ -48,6 +50,7 @@ class LaravelArtisanDestroyServiceProvider extends PackageServiceProvider
                 ControllerDestroyCommand::class,
                 EventDestroyCommand::class,
                 ExceptionDestroyCommand::class,
+                FactoryDestroyCommand::class,
                 JobDestroyCommand::class,
                 ListenerDestroyCommand::class,
                 MailDestroyCommand::class,
@@ -62,6 +65,7 @@ class LaravelArtisanDestroyServiceProvider extends PackageServiceProvider
                 ResourceDestroyCommand::class,
                 RuleDestroyCommand::class,
                 ScopeDestroyCommand::class,
+                SeederDestroyCommand::class,
                 TestDestroyCommand::class,
                 ViewDestroyCommand::class,
             ]);

@@ -2,20 +2,20 @@
 
 namespace Msazzuhair\LaravelArtisanDestroy\Commands\Routing;
 
-use Illuminate\Console\Concerns\CreatesMatchingTest;
+use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Msazzuhair\LaravelArtisanDestroy\Commands\DestroyerCommand;
+use Msazzuhair\LaravelArtisanDestroy\Traits\DeletesMatchingTest;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-
 use function Laravel\Prompts\confirm;
 
 #[AsCommand(name: 'destroy:controller')]
 class ControllerDestroyCommand extends DestroyerCommand
 {
-    use CreatesMatchingTest;
+    use DeletesMatchingTest;
 
     /**
      * The console command name.
@@ -49,6 +49,14 @@ class ControllerDestroyCommand extends DestroyerCommand
         return $rootNamespace.'\Http\Controllers';
     }
 
+    public function handle() {
+        parent::handle();
+
+        $name = $this->qualifyClass($this->getNameInput());
+
+        $this->deleteClass($name);
+    }
+
     /**
      * Build the class with the given name.
      *
@@ -57,84 +65,51 @@ class ControllerDestroyCommand extends DestroyerCommand
      * @param  string  $name
      * @return string
      */
-    protected function buildClass($name)
+    protected function deleteClass($name)
     {
         $controllerNamespace = $this->getNamespace($name);
 
         $replace = [];
 
         if ($this->option('parent')) {
-            $replace = $this->deleteParentReplacements();
+            $this->deleteRelatedParentModel();
         }
 
         if ($this->option('model')) {
-            $replace = $this->deleteModelReplacements($replace);
+            $this->deleteRelatedModel($replace);
         }
 
-        if ($this->option('creatable')) {
-            $replace['abort(404);'] = '//';
+        if ($this->option('requests')) {
+            $this->deleteFormRequestReplacements($replace, $this->inferModelClass());
         }
-
-        $replace["use {$controllerNamespace}\Controller;\n"] = '';
-
-        return str_replace(
-            array_keys($replace), array_values($replace), parent::buildClass($name)
-        );
     }
 
     /**
      * Build the replacements for a parent controller.
      *
-     * @return array
+     * @return void
      */
-    protected function deleteParentReplacements()
+    protected function deleteRelatedParentModel()
     {
         $parentModelClass = $this->parseModel($this->option('parent'));
 
-        if (! class_exists($parentModelClass) &&
-            confirm("A {$parentModelClass} model does not exist. Do you want to generate it?", default: true)) {
-            $this->call('make:model', ['name' => $parentModelClass]);
+        if (class_exists($parentModelClass)) {
+            $this->call('destroy:model', ['name' => $parentModelClass]);
         }
-
-        return [
-            'ParentDummyFullModelClass' => $parentModelClass,
-            '{{ namespacedParentModel }}' => $parentModelClass,
-            '{{namespacedParentModel}}' => $parentModelClass,
-            'ParentDummyModelClass' => class_basename($parentModelClass),
-            '{{ parentModel }}' => class_basename($parentModelClass),
-            '{{parentModel}}' => class_basename($parentModelClass),
-            'ParentDummyModelVariable' => lcfirst(class_basename($parentModelClass)),
-            '{{ parentModelVariable }}' => lcfirst(class_basename($parentModelClass)),
-            '{{parentModelVariable}}' => lcfirst(class_basename($parentModelClass)),
-        ];
     }
 
     /**
      * Build the model replacement values.
      *
-     * @return array
+     * @return void
      */
-    protected function deleteModelReplacements(array $replace)
+    protected function deleteRelatedModel(array $replace)
     {
         $modelClass = $this->parseModel($this->option('model'));
 
-        if (! class_exists($modelClass) && confirm("A {$modelClass} model does not exist. Do you want to generate it?", default: true)) {
-            $this->call('make:model', ['name' => $modelClass]);
+        if (class_exists($modelClass)) {
+            $this->call('destroy:model', ['name' => $modelClass]);
         }
-
-        $replace = $this->buildFormRequestReplacements($replace, $modelClass);
-
-        return array_merge($replace, [
-            'DummyFullModelClass' => $modelClass,
-            '{{ namespacedModel }}' => $modelClass,
-            '{{namespacedModel}}' => $modelClass,
-            'DummyModelClass' => class_basename($modelClass),
-            '{{ model }}' => class_basename($modelClass),
-            '{{model}}' => class_basename($modelClass),
-            'DummyModelVariable' => lcfirst(class_basename($modelClass)),
-            '{{ modelVariable }}' => lcfirst(class_basename($modelClass)),
-            '{{modelVariable}}' => lcfirst(class_basename($modelClass)),
-        ]);
     }
 
     /**
@@ -160,19 +135,17 @@ class ControllerDestroyCommand extends DestroyerCommand
      * @param  string  $modelClass
      * @return array
      */
-    protected function buildFormRequestReplacements(array $replace, $modelClass)
+    protected function deleteFormRequestReplacements(array $replace, $modelClass)
     {
         [$namespace, $storeRequestClass, $updateRequestClass] = [
             'Illuminate\\Http', 'Request', 'Request',
         ];
 
-        if ($this->option('requests')) {
-            $namespace = 'App\\Http\\Requests';
+        $namespace = 'App\\Http\\Requests';
 
-            [$storeRequestClass, $updateRequestClass] = $this->destroyFormRequests(
-                $modelClass
-            );
-        }
+        [$storeRequestClass, $updateRequestClass] = $this->destroyFormRequests(
+            $modelClass
+        );
     }
 
     /**
@@ -189,12 +162,14 @@ class ControllerDestroyCommand extends DestroyerCommand
 
         $this->call('destroy:request', [
             'name' => $storeRequestClass,
+            '--force' => $this->option('force'),
         ]);
 
         $updateRequestClass = 'Update'.class_basename($modelClass).'Request';
 
         $this->call('destroy:request', [
             'name' => $updateRequestClass,
+            '--force' => $this->option('force'),
         ]);
 
         return [$storeRequestClass, $updateRequestClass];
@@ -208,10 +183,12 @@ class ControllerDestroyCommand extends DestroyerCommand
     protected function getOptions()
     {
         return [
-            ['model', 'm', InputOption::VALUE_OPTIONAL, 'Generate a resource controller for the given model'],
-            ['parent', 'p', InputOption::VALUE_OPTIONAL, 'Generate a nested resource controller class'],
+            ['model', 'm', InputOption::VALUE_OPTIONAL, 'Delete the model for a given resource controller'],
+            ['model-name', 'M', InputOption::VALUE_OPTIONAL, 'Specify the model name. Also implies the name of the form request classes.'],
+            ['parent', 'p', InputOption::VALUE_OPTIONAL, 'Delete the parent model for a nested resource controller class'],
             ['force', 'f', InputOption::VALUE_NONE, 'Delete the class without prompting for confirmation'],
             ['requests', 'R', InputOption::VALUE_NONE, 'Delete FormRequest classes for store and update'],
+            ['test', 't', InputOption::VALUE_NONE, 'Delete any accompanying PHPUnit test for the controller'],
         ];
     }
 
@@ -234,5 +211,15 @@ class ControllerDestroyCommand extends DestroyerCommand
         if ($requests) {
             $input->setOption('requests', true);
         }
+    }
+
+    protected function inferModelClass()
+    {
+        if ($this->option('model-name')) {
+            return $this->parseModel($this->option('model-name'));
+        }
+
+        // Remove the "Controller" suffix off the class name and use that as the model name
+        return $this->parseModel(Str::beforeLast($this->argument('name'), 'Controller'));
     }
 }

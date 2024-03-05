@@ -1,6 +1,6 @@
 <?php
 
-namespace Msazzuhair\LaravelArtisanDestroy\Commands\Migrations;
+namespace Msazzuhair\LaravelArtisanDestroy\Commands\Database\Migrations;
 
 use Illuminate\Contracts\Console\PromptsForMissingInput;
 use Illuminate\Database\Console\Migrations\BaseCommand;
@@ -30,7 +30,7 @@ class MigrateDestroyCommand extends BaseCommand implements PromptsForMissingInpu
     /**
      * The migration creator instance.
      *
-     * @var \Msazzuhair\LaravelArtisanDestroy\Commands\Migrations\MigrationDestroyer
+     * @var \Msazzuhair\LaravelArtisanDestroy\Commands\Database\Migrations\MigrationDestroyer
      */
     protected $destroyer;
 
@@ -106,7 +106,7 @@ class MigrateDestroyCommand extends BaseCommand implements PromptsForMissingInpu
             $name, $this->getMigrationPath()
         );
 
-        $this->components->info(sprintf('Migration [%s] deleted successfully.', $file));
+        $this->info(sprintf('Migration [%s] deleted successfully.', $file));
     }
 
     /**
@@ -183,7 +183,7 @@ class MigrateDestroyCommand extends BaseCommand implements PromptsForMissingInpu
             }
 
             $confirmation = $this->confirm(
-                'Are you sure you want to proceed?'
+                'Are you sure you want to delete '.$path.'?'
             );
 
             if (! $confirmation) {

@@ -32,13 +32,12 @@ trait DeletesMatchingTest
      */
     protected function handleTestDeletion($path)
     {
-        if (! $this->option('test') && ! $this->option('pest')) {
+        if (! $this->option('test')) {
             return false;
         }
 
         return $this->callSilent('destroy:test', [
             'name' => Str::of($path)->after($this->laravel['path'])->beforeLast('.php')->append('Test')->replace('\\', '/'),
-            '--pest' => $this->option('pest'),
         ]) == 0;
     }
 }
