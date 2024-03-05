@@ -10,6 +10,7 @@ use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+
 use function Laravel\Prompts\confirm;
 
 #[AsCommand(name: 'destroy:controller')]
@@ -49,7 +50,8 @@ class ControllerDestroyCommand extends DestroyerCommand
         return $rootNamespace.'\Http\Controllers';
     }
 
-    public function handle() {
+    public function handle()
+    {
         parent::handle();
 
         $name = $this->qualifyClass($this->getNameInput());
