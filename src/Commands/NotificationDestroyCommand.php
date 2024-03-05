@@ -44,7 +44,7 @@ class NotificationDestroyCommand extends DestroyerCommand
         }
 
         if ($this->option('markdown')) {
-            $this->writeMarkdownTemplate();
+            $this->deleteMarkdownTemplate();
         }
     }
 
@@ -53,59 +53,19 @@ class NotificationDestroyCommand extends DestroyerCommand
      *
      * @return void
      */
-    protected function writeMarkdownTemplate()
+    protected function deleteMarkdownTemplate()
     {
         $path = $this->viewPath(
             str_replace('.', '/', $this->option('markdown')).'.blade.php'
         );
 
-        if (! $this->files->isDirectory(dirname($path))) {
-            $this->files->makeDirectory(dirname($path), 0755, true);
+        if (! $this->files->exists($path)) {
+            $this->error('Markdown template does not exist.');
+
+            return;
         }
 
-        $this->files->put($path, file_get_contents(__DIR__.'/stubs/markdown.stub'));
-    }
-
-    /**
-     * Build the class with the given name.
-     *
-     * @param  string  $name
-     * @return string
-     */
-    protected function buildClass($name)
-    {
-        $class = parent::buildClass($name);
-
-        if ($this->option('markdown')) {
-            $class = str_replace(['DummyView', '{{ view }}'], $this->option('markdown'), $class);
-        }
-
-        return $class;
-    }
-
-    /**
-     * Get the stub file for the generator.
-     *
-     * @return string
-     */
-    protected function getStub()
-    {
-        return $this->option('markdown')
-            ? $this->resolveStubPath('/stubs/markdown-notification.stub')
-            : $this->resolveStubPath('/stubs/notification.stub');
-    }
-
-    /**
-     * Resolve the fully-qualified path to the stub.
-     *
-     * @param  string  $stub
-     * @return string
-     */
-    protected function resolveStubPath($stub)
-    {
-        return file_exists($customPath = $this->laravel->basePath(trim($stub, '/')))
-            ? $customPath
-            : __DIR__.$stub;
+        $this->files->delete($path);
     }
 
     /**

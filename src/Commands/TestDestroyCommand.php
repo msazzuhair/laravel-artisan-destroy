@@ -35,33 +35,6 @@ class TestDestroyCommand extends DestroyerCommand
     protected $type = 'Test';
 
     /**
-     * Get the stub file for the generator.
-     *
-     * @return string
-     */
-    protected function getStub()
-    {
-        $suffix = $this->option('unit') ? '.unit.stub' : '.stub';
-
-        return $this->option('pest')
-            ? $this->resolveStubPath('/stubs/pest'.$suffix)
-            : $this->resolveStubPath('/stubs/test'.$suffix);
-    }
-
-    /**
-     * Resolve the fully-qualified path to the stub.
-     *
-     * @param  string  $stub
-     * @return string
-     */
-    protected function resolveStubPath($stub)
-    {
-        return file_exists($customPath = $this->laravel->basePath(trim($stub, '/')))
-                        ? $customPath
-                        : __DIR__.$stub;
-    }
-
-    /**
      * Get the destination class path.
      *
      * @param  string  $name
@@ -108,34 +81,6 @@ class TestDestroyCommand extends DestroyerCommand
     {
         return [
             ['force', 'f', InputOption::VALUE_NONE, 'Delete the class without prompting for confirmation'],
-            ['unit', 'u', InputOption::VALUE_NONE, 'Delete a unit test'],
-            ['pest', 'p', InputOption::VALUE_NONE, 'Delete a Pest test'],
         ];
-    }
-
-    /**
-     * Interact further with the user if they were prompted for missing arguments.
-     *
-     * @return void
-     */
-    protected function afterPromptingForMissingArguments(InputInterface $input, OutputInterface $output)
-    {
-        if ($this->isReservedName($this->getNameInput()) || $this->didReceiveOptions($input)) {
-            return;
-        }
-
-        $type = select('Which type of test would you like?', [
-            'feature' => 'Feature (PHPUnit)',
-            'unit' => 'Unit (PHPUnit)',
-            'pest-feature' => 'Feature (Pest)',
-            'pest-unit' => 'Unit (Pest)',
-        ]);
-
-        match ($type) {
-            'feature' => null,
-            'unit' => $input->setOption('unit', true),
-            'pest-feature' => $input->setOption('pest', true),
-            'pest-unit' => tap($input)->setOption('pest', true)->setOption('unit', true),
-        };
     }
 }

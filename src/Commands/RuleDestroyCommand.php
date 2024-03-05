@@ -30,39 +30,6 @@ class RuleDestroyCommand extends DestroyerCommand
     protected $type = 'Rule';
 
     /**
-     * Build the class with the given name.
-     *
-     * @param  string  $name
-     * @return string
-     *
-     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
-     */
-    protected function buildClass($name)
-    {
-        return str_replace(
-            '{{ ruleType }}',
-            $this->option('implicit') ? 'ImplicitRule' : 'Rule',
-            parent::buildClass($name)
-        );
-    }
-
-    /**
-     * Get the stub file for the generator.
-     *
-     * @return string
-     */
-    protected function getStub()
-    {
-        $stub = $this->option('implicit')
-            ? '/stubs/rule.implicit.stub'
-            : '/stubs/rule.stub';
-
-        return file_exists($customPath = $this->laravel->basePath(trim($stub, '/')))
-            ? $customPath
-            : __DIR__.$stub;
-    }
-
-    /**
      * Get the default namespace for the class.
      *
      * @param  string  $rootNamespace

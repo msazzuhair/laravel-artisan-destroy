@@ -68,6 +68,7 @@ class ComponentDestroyCommand extends DestroyerCommand
         $path = $this->viewPath(
             str_replace('.', '/', 'components.'.$this->getView()).'.blade.php'
         );
+
         if (! $this->files->exists($path)) {
             $this->error('View does not exist.');
 

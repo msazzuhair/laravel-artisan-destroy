@@ -36,25 +36,6 @@ class ViewDestroyCommand extends DestroyerCommand
     protected $type = 'View';
 
     /**
-     * Build the class with the given name.
-     *
-     * @param  string  $name
-     * @return string
-     *
-     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
-     */
-    protected function buildClass($name)
-    {
-        $contents = parent::buildClass($name);
-
-        return str_replace(
-            '{{ quote }}',
-            Inspiring::quotes()->random(),
-            $contents,
-        );
-    }
-
-    /**
      * Get the destination view path.
      *
      * @param  string  $name
@@ -82,31 +63,6 @@ class ViewDestroyCommand extends DestroyerCommand
     }
 
     /**
-     * Get the stub file for the generator.
-     *
-     * @return string
-     */
-    protected function getStub()
-    {
-        return $this->resolveStubPath(
-            '/stubs/view.stub',
-        );
-    }
-
-    /**
-     * Resolve the fully-qualified path to the stub.
-     *
-     * @param  string  $stub
-     * @return string
-     */
-    protected function resolveStubPath($stub)
-    {
-        return file_exists($customPath = $this->laravel->basePath(trim($stub, '/')))
-                        ? $customPath
-                        : __DIR__.$stub;
-    }
-
-    /**
      * Get the destination test case path.
      *
      * @return string
@@ -127,46 +83,13 @@ class ViewDestroyCommand extends DestroyerCommand
      *
      * @param  string  $path
      */
-    protected function handleTestCreation($path): bool
+    protected function handleTestDeletion($path): bool
     {
         if (! $this->option('test') && ! $this->option('pest')) {
             return false;
         }
 
-        $contents = preg_replace(
-            ['/\{{ namespace \}}/', '/\{{ class \}}/', '/\{{ name \}}/'],
-            [$this->testNamespace(), $this->testClassName(), $this->testViewName()],
-            File::get($this->getTestStub()),
-        );
-
-        File::ensureDirectoryExists(dirname($this->getTestPath()), 0755, true);
-
-        return File::put($this->getTestPath(), $contents);
-    }
-
-    /**
-     * Get the namespace for the test.
-     *
-     * @return string
-     */
-    protected function testNamespace()
-    {
-        return Str::of($this->testClassFullyQualifiedName())
-            ->beforeLast('\\')
-            ->value();
-    }
-
-    /**
-     * Get the class name for the test.
-     *
-     * @return string
-     */
-    protected function testClassName()
-    {
-        return Str::of($this->testClassFullyQualifiedName())
-            ->afterLast('\\')
-            ->append('Test')
-            ->value();
+        return File::delete($this->getTestPath());
     }
 
     /**
@@ -191,20 +114,6 @@ class ViewDestroyCommand extends DestroyerCommand
             ->implode('');
 
         return 'Tests\\Feature\\View\\'.$namespacedName;
-    }
-
-    /**
-     * Get the test stub file for the generator.
-     *
-     * @return string
-     */
-    protected function getTestStub()
-    {
-        $stubName = 'view.'.($this->option('pest') ? 'pest' : 'test').'.stub';
-
-        return file_exists($customPath = $this->laravel->basePath("stubs/$stubName"))
-            ? $customPath
-            : __DIR__.'/stubs/'.$stubName;
     }
 
     /**
