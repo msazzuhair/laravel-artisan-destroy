@@ -5,9 +5,15 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/msazzuhair/laravel-artisan-destroy/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/msazzuhair/laravel-artisan-destroy/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/msazzuhair/laravel-artisan-destroy.svg?style=flat-square)](https://packagist.org/packages/msazzuhair/laravel-artisan-destroy)
 
-A missing destroy command for anyone who has second thoughts.
+⚠️⚠️ Do not install this package on your production environment. ⚠️⚠
 
-⚠️⚠️ Do not install this package on production environment. ⚠️⚠️
+A (maybe?) missing destroy command for anyone who has second thoughts. This will delete artisan-generated files from your project.
+
+Let's say, you have generated some files using the `artisan make` command. Then you think of a better name, or the generated files don't have a proper name based on the Laravel naming convention. This simple package will help you clean up those messes.
+
+Just replace your `artisan make:...` command with `artisan destroy:...` and you're good to go. These commands will also warn you if the file you are trying to delete is untracked or has uncommitted changes.
+
+I have used some of these commands on my projects, so ️they should work.
 
 ## Development Progress
 
@@ -42,7 +48,7 @@ A missing destroy command for anyone who has second thoughts.
 
 ## Optional Requirements
 
-- Git. This package will check if the file to be deleted is tracked and clean. If git is not installed you'll need to use `--force` option or you can disable git checking through config file. 
+- Git. This package will check if the file to be deleted is tracked and clean. If git is not installed, you'll need to use the `--force` option or disable git checking through the config file.
 
 ## Installation
 
