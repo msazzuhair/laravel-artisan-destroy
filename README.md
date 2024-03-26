@@ -5,7 +5,7 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/msazzuhair/laravel-artisan-destroy/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/msazzuhair/laravel-artisan-destroy/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/msazzuhair/laravel-artisan-destroy.svg?style=flat-square)](https://packagist.org/packages/msazzuhair/laravel-artisan-destroy)
 
-⚠️⚠️ Do not install this package on your production environment. ⚠️⚠
+⚠️⚠️ Do not install this package on your production environment. ⚠️⚠️
 
 A (maybe?) missing destroy command for anyone who has second thoughts. This will delete artisan-generated files from your project.
 
